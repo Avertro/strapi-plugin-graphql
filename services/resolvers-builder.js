@@ -53,6 +53,9 @@ const buildMutation = (mutationName, config) => {
     if (_.isError(result)) {
       throw result;
     }
+    //run policies again with response data (not ideal - should be composable)
+    ctx.response.body = result;
+    await policiesMiddleware(ctx);
 
     return transformOutput(result);
   };
@@ -115,7 +118,9 @@ const buildQuery = (queryName, config) => {
     if (_.isError(result)) {
       throw result;
     }
-
+    //run policies again with response data (not ideal - should be composable)
+    ctx.response.body = result;
+    await policiesMiddleware(ctx);
     return result;
   };
 };
