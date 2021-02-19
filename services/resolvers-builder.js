@@ -153,8 +153,6 @@ const buildQueryContext = ({ options, graphqlContext }) => {
 
   const ctx = cloneKoaContext(context);
 
-  // Note: we've to used the Object.defineProperties to reset the prototype. It seems that the cloning the context
-  // cause a lost of the Object prototype.
   const opts = amountLimiting(_options);
 
   ctx.query = {
@@ -170,7 +168,6 @@ const buildQueryContext = ({ options, graphqlContext }) => {
 /**
  * Checks if a resolverPath (resolver or resovlerOf) might be resolved
  */
-
 const getPolicies = config => {
   const { resolver, policies = [], resolverOf } = config;
 
